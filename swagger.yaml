@@ -3,7 +3,7 @@ info:
   version: "v1"
   title: Explotación Path Traversal / Command Injection en Windows
 
-host: https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003
+host: webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003
 
 schemes:
   - http
