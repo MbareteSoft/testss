@@ -8,7 +8,7 @@
           "schemes": [
               "http"
           ],
-          "host": "https://hum-cpp-api.easydoc.com.ar",
+          "host": "hum-cpp-api.easydoc.com.ar",
           "basePath": "/",
           "produces": [
               "application/json"
